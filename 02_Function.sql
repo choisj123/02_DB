@@ -69,6 +69,7 @@ SELECT TRIM('    HELLO    ') FROM DUAL;
 SELECT TRIM(BOTH '#' FROM '#####안녕######') FROM DUAL; 
 SELECT TRIM(TRAILING  '#' FROM '#####안녕######') FROM DUAL; -- 뒤쪽
 SELECT TRIM(LEADING  '#' FROM '#####안녕######') FROM DUAL; --앞쪽
+SELECT TRIM(LEADING  '#' FROM '#####안녕######') FROM DUAL; --앞쪽
 
 ----------------------------------------------------
 
@@ -179,8 +180,8 @@ SELECT LAST_DAY('2023-02-10') FROM DUAL;
 
 --EMPLOYEE 테이블에서 각 사원의 이름, 입사년도, 월, 일, 조회
 SELECT EMP_NAME , 
-	EXTRACT(YEAR FROM HIRE_DATE) || '년' ||  
-	EXTRACT(MONTH FROM HiRE_DATE) || '월' ||
+	EXTRACT(YEAR FROM HIRE_DATE) || '년 ' ||  
+	EXTRACT(MONTH FROM HiRE_DATE) || '월 ' ||
 	EXTRACT(DAY FROM HIRE_DATE) || '일' AS 입사일
 FROM EMPLOYEE; 
 
@@ -219,8 +220,8 @@ SELECT SYSDATE FROM DUAL;
 
 -- 2022-01-10 10:21:00 화요일
 SELECT TO_CHAR('SYSDATE', 'YYYY-MM-DD HH24 : MI : SS Day') FROM DUAL; 
-SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24 : MI : SS Day') FROM DUAL; 
-SELECT TO_CHAR(SYSDATE, 'YY/MM/DD AM HH : MI : SS (Dy)') FROM DUAL; 
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS Day') FROM DUAL; 
+SELECT TO_CHAR(SYSDATE, 'YY/MM/DD AM HH:MI:SS (Dy)') FROM DUAL; 
 
 
 --2023년 01월 10일 (화)
@@ -243,6 +244,7 @@ SELECT TO_DATE(20230110) FROM DUAL;
 
 SELECT TO_DATE('510505', 'YYMMDD') FROM DUAL; -- 2051-05-05
 SELECT TO_DATE('510505', 'RRMMDD') FROM DUAL; -- 1951-05-05
+SELECT TO_DATE('490505', 'RRMMDD') FROM DUAL; -- 2049-05-05
 
 -- Y패턴 : 현재 세기(21세기 == 20xx년 == 2000년대)
 -- R패턴 : 1세기를 기준으로 절반(50) 이상인 경우 이전세기(1900년대)
@@ -267,6 +269,7 @@ SELECT emp_name,
 	EXTRACT(MONTH FROM TO_DATE(SUBSTR(EMP_NO, 1, INSTR(EMP_NO, '-') -1), 'RRMMDD')) || '월 ' ||
 	EXTRACT(DAY FROM TO_DATE(SUBSTR(EMP_NO, 1, INSTR(EMP_NO, '-') -1), 'RRMMDD')) || '일' 생년월일
 FROM EMPLOYEE;
+
 
 
 -----------------------------------------------------------------------------------

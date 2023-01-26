@@ -101,7 +101,11 @@ SELECT EMP_NAME, SALARY, '원 입니다' AS 단위 FROM EMPLOYEE;
 -- 주의사항 2) DISTINCT 구문은 SELECT 제일 앞에 작성되어야 한다.
 
 
-SELECT DISTINCT DEPT_CODE, JOB_CODE FROM EMPLOYEE;
+SELECT DISTINCT DEPT_CODE 
+FROM EMPLOYEE
+ORDER BY DEPT_CODE;
+
+
 
 ----------------------------------------------------------
 
@@ -233,7 +237,7 @@ WHERE EMAIL LIKE '___#_%' ESCAPE '#';
 
 -- EMPLOYEE 테이블에서 
 -- 이메일 '_'앞이 4글자 이면서
--- 부서코드가 'D9'또는 'D6'이고 --> AND가 OR보다 우선순위가 높다. ()사용 가
+-- 부서코드가 'D9'또는 'D6'이고 --> AND가 OR보다 우선순위가 높다. ()사용 가능
 -- 입사일이 1990-01-01 ~ 2000-12-31 이고
 -- 급여가 270만 이상인 사원의
 -- 사번, 이름, 이메일, 부서보드, 입사일, 급여 조회

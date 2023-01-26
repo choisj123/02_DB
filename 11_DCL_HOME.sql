@@ -1,0 +1,28 @@
+-- 1. (SYS) 사용자 계정 생성
+
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+
+CREATE USER csj_sample IDENTIFIED BY csj1234;
+GRANT CREATE SESSION TO csj_sample;
+-- 계정 연결 가능
+
+GRANT CREATE TABLE TO csj_sample;
+ALTER USER csj_sample DEFAULT TABLESPACE 
+SYSTEM QUOTA UNLIMITED ON SYSTEM;
+-- 테이블 생성 권한 부여
+
+-- 2. (sample) 테이블 생성 가능
+CREATE TABLE TB_TEST(
+	PK_COL NUMBER PRIMARY KEY,
+	CONTENT VARCHAR2(100)
+);
+
+GRANT CONNECT, RESOURCE TO csj_sample;
+
+
+
+-- 1. (kh) sample 계정에 테이블 조회 권한 부여
+GRANT SELECT ON EMPLOYEE TO csj_sample;
+
+-- 2. (sample) kh.EMPLOYEE 조회
+SELECT * FROM kh.EMPLOYEE;
