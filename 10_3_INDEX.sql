@@ -39,6 +39,7 @@ WHERE EMP_ID = 215; -- 인덱스 사용!
 SELECT * FROM EMPLOYEE
 WHERE EMP_NAME = '대북혼';
 
+DROP TABLE TB_IDX_TEST;
 
 
 -- 인덱스 확인용 테이블 생성

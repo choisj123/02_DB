@@ -18,8 +18,8 @@
   [INCREMENT BY 숫자] -- 다음 값에 대한 증가치, 생략하면 자동 1이 기본
   [MAXVALUE 숫자 | NOMAXVALUE] -- 발생시킬 최대값 지정 (10의 27승 -1)
   [MINVALUE 숫자 | NOMINVALUE] -- 최소값 지정 (-10의 26승)
-  [CYCLE | NOCYCLE] -- 값 순환 여부 지정
-  [CACHE 바이트크기 | NOCACHE] -- 캐쉬메모리 기본값은 20바이트, 최소값은 2바이트
+  [CYCLE | NOCYCLE(기본값)] -- 값 순환 여부 지정
+  [CACHE 바이트크기 | NOCACHE(기본값)] -- 캐쉬메모리 기본값은 20바이트, 최소값은 2바이트
 
 -- 시퀀스의 캐시 메모리는 할당된 크기만큼 미리 다음 값들을 생성해 저장해둠
 -- --> 시퀀스 호출 시 미리 저장되어진 값들을 가져와 반환하므로 
@@ -41,6 +41,8 @@
 -- 시작 : 1
 -- 반복 X (NOCYCLE)
 -- 캐시메모리 20 BYTE
+
+DROP SEQUENCE SEQ_TEST;
 
 CREATE SEQUENCE SEQ_TEST;
 
@@ -66,6 +68,7 @@ SELECT SEQ_TEST.CURRVAL FROM DUAL; -- 5
 -------------------------------------------------
 
 -- 실제 사용 예시
+DROP TABLE EMP_TEMP;
 
 CREATE TABLE EMP_TEMP
 AS SELECT EMP_ID, EMP_NAME FROM EMPLOYEE;
@@ -73,6 +76,12 @@ AS SELECT EMP_ID, EMP_NAME FROM EMPLOYEE;
 SELECT * FROM EMP_TEMP;
 
 -- 223번부터 10씩 증가하는 시퀀스 생성
+DROP SEQUENCE SEQ_TEMP;
+
+CREATE SEQUENCE SEQ_TEMP
+START WITH 223
+INCREMENT BY 10;
+
 
 CREATE SEQUENCE SEQ_TEMP
 START WITH 223 -- 223부터 시작
@@ -82,11 +91,16 @@ NOCACHE; -- 캐시 X(기본값 CACHE 20)
 
 -- EMP_TEMP 테이블에 사원 정보 삽입
 INSERT INTO EMP_TEMP VALUES(SEQ_TEMP.NEXTVAL, '홍길동');
-INSERT INTO EMP_TEMP VALUES(SEQ_TEMP.NEXTVAL, '고길동');
+INSERT INTO EMP_TEMP VALUES(SEQ_TEMP.CURRVAL, '고길동'); -- pk 위배
 INSERT INTO EMP_TEMP VALUES(SEQ_TEMP.NEXTVAL, '김길동');
+
+ROLLBACK; 
 
 SELECT * FROM EMP_TEMP;
 
+
+ALTER TABLE EMP_TEMP 
+MODIFY EMP_ID PRIMARY KEY;
 
 ---------------------------------------------------
 

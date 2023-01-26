@@ -31,12 +31,16 @@
     -- 4) WITH READ ONLY 옵션 : 뷰에 대해 조회만 가능(DML 수행 불가)    
 */
 
+DROP VIEW V_EMP;
+
+
 -- 사번, 이름, 부서명, 직급명 조회 결과를 저장하는 VIEW 생성
 CREATE VIEW V_EMP
 AS SELECT EMP_ID, EMP_NAME, DEPT_TITLE, JOB_NAME
 FROM EMPLOYEE
 JOIN DEPARTMENT ON(DEPT_ID = DEPT_CODE)
 JOIN JOB USING(JOB_CODE);
+
 
 -- error : 부적절한 권한
 
@@ -72,6 +76,8 @@ SELECT * FROM V_EMP;
 
 -- * VIEW를 이용한 DML 확인 *
 
+DROP TABLE DEPT_COPY2;
+
 -- 테이블 복사
 CREATE TABLE DEPT_COPY2 
 AS SELECT * FROM DEPARTMENT;
@@ -97,9 +103,9 @@ SELECT * FROM V_DCOPY2; --> VIEW에 'D0'가 삽입된 걸 확인함
 -- 원본 테이블 확인
 SELECT * FROM DEPT_COPY2; -- D0 NULL L3
 --> VIEW에 삽입한 내용이 원본 테이블에 존재함
---> VIEW를 이용항 DML 구문이 원본에 영향을 미친다.
+--> VIEW를 이용한 DML 구문이 원본에 영향을 미친다.
 
--- VIEW를 이용한 DNL시 발생하는 문제점 ==제약조건 위배 현상
+-- VIEW를 이용한 DNL시 발생하는 문제점 == 제약조건 위배 현상
 ROLLBACK;
 SELECT * FROM DEPT_COPY2;
 SELECT * FROM V_DCOPY2;
