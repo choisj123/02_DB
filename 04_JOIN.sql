@@ -8,9 +8,9 @@
 포괄 조인 		                   |     왼쪽 외부 조인(LEFT OUTER), 오른쪽 외부 조인(RIGHT OUTER)
                                    |         + 전체 외부 조인(FULL OUTER, 오라클 구문으로는 사용 못함)
 ----------------------------------------------------------------------------------------------------------------
-자체 조인, 비등가 조인   	       |        		    JOIN ON --> BETWEEN 범
+자체 조인, 비등가 조인   	       |        		    JOIN ON --> BETWEEN 범위
 ----------------------------------------------------------------------------------------------------------------
-카테시안(카티션) 곱		           |   			 교차 조인(CROSS JOIN)  --> 많이 안
+카테시안(카티션) 곱		           |   			 교차 조인(CROSS JOIN)  --> 많이 안씀
 CARTESIAN PRODUCT				   |	
 
 - 미국 국립 표준 협회(American National Standards Institute, ANSI) 미국의 산업 표준을 제정하는 민간단체.
@@ -76,7 +76,6 @@ JOIN DEPARTMENT ON(DEPT_CODE = DEPT_ID);
 -- *오라클 전용 구문
 -- FROM절에 쉼표(,) 로 구분하여 합치게 될 테이블명을 기술하고
 -- WHERE절에 합치기에 사용할 컬럼명을 명시한다
-
 
 
 -- 1) 연결에 사용할 두 컬럼명이 다른 경우
@@ -180,8 +179,8 @@ FROM EMPLOYEE
 --사원의 이름과 부서명 조회
 -- ANSI 표준
 SELECT  EMP_NAME, DEPT_TITLE
-FROM EMPLOYEE LEFT OUTER JOIN DEPARTMENT
-ON(DEPT_CODE = DEPT_ID); --23행 (하동운, 이오리 포함)
+FROM EMPLOYEE 
+LEFT OUTER JOIN DEPARTMENT ON(DEPT_CODE = DEPT_ID); --23행 (하동운, 이오리 포함)
 
 
 -- 오라클 구문
@@ -265,7 +264,8 @@ JOIN SAL_GRADE ON(SALARY BETWEEN MIN_SAL AND MAX_SAL);
 -- ANSI 표준
 
 SELECT e1.EMP_ID , e1.EMP_NAME , 
-NVL(e1.MANAGER_ID,'-') , NVL(e2.EMP_NAME, '-') 
+		NVL(e1.MANAGER_ID,'-') , 
+		NVL(e2.EMP_NAME, '-') 
 FROM EMPLOYEE e1
 LEFT JOIN EMPLOYEE e2 ON(e1.MANAGER_ID = e2.EMP_ID); 
 

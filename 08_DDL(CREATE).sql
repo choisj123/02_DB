@@ -732,9 +732,10 @@ CREATE TABLE EMPLOYEE_COPY
 AS SELECT * FROM EMPLOYEE;
 --> 서브쿼리의 조회결과 (RESULT SET)의 모양대로 테이블이 생성됨
 
--- comment, 제약조건은  복사 안됨 notnull  
+-- comment, 제약조건은  복사 안됨 not null  
 
 DROP TABLE EMPLOYEE_COPY2; 
+
 --2) JOIN 후 원하는 컬럼만 테이블로 복사
 CREATE TABLE EMPLOYEE_COPY2
 AS
