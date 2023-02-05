@@ -80,17 +80,80 @@ FROM EMPLOYEE
 GROUP BY JOB_CODE 
 
 -----------------------------------------------------
+-- workbook
+--SQL03_SELECT(OPTION)
+
+--1
+SELECT STUDENT_NAME AS "학생 이름" , STUDENT_ADDRESS AS 주소지
+FROM TB_STUDENT 
+ORDER BY STUDENT_NAME;
+
+--2.
+SELECT STUDENT_NAME , STUDENT_SSN 
+FROM TB_STUDENT 
+WHERE ABSENCE_YN = 'Y'
+ORDER BY STUDENT_SSN DESC;
+
+--3.
+
+SELECT STUDENT_NAME AS 학생이름, STUDENT_NO AS 학번 , STUDENT_ADDRESS AS "거주지 주소"
+FROM TB_STUDENT
+WHERE (STUDENT_ADDRESS LIKE '강원도%' 
+OR STUDENT_ADDRESS LIKE '경기도%')
+AND SUBSTR(STUDENT_NO,1,1) = '9'
+ORDER BY 1; 
+
+--4
+
+SELECT PROFESSOR_NAME , PROFESSOR_SSN 
+FROM TB_PROFESSOR 
+JOIN TB_DEPARTMENT USING(DEPARTMENT_NO)
+WHERE DEPARTMENT_NAME = '법학과'
+ORDER BY 2;
+
+--5
+SELECT STUDENT_NO , POINT 
+FROM TB_GRADE 
+WHERE TERM_NO = '200402'
+AND CLASS_NO = 'C3118100';
 
 
+		// 부서명을 입력받아 같은 부서에 있는 사원의
+		// 사원명, 부서명, 급여 조회
+		SELECT EMP_NAME , NVL(DEPT_TITLE, '부서없음'), SALARY 
+		FROM EMPLOYEE e 
+		LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+		WHERE NVL(DEPT_TITLE, '부서없음') = input
 
 
+		
+		// 직급명, 급여를 입력받아
+		// 해당 직급에서 입력 받은 급여보다 많이 받는 사원의
+		// 이름, 직급명, 급여, 연봉을 조회하여 출력
+		// 단, 조회 결과가 없으면 "조회 결과 없음" 출력
+		
+		// 조회 결과가 있으면 아래와 같이 출력
+		// 선동일 / 대표 / 8000000 / 96000000
+		// 송중기 / 부장 / 6000000 / 72000000
+		// ...
+		
+		SELECT EMP_NAME , JOB_NAME, SALARY , SALARY * 12 ANNUAL_INCOME
+		FROM EMPLOYEE e 
+		JOIN JOB USING(JOB_CODE)
+		WHERE JOB_NAME = '대표'
+		AND SALARY > 700000;
+	
+	
+		// 입사일을 입력("2022-09-06") 받아
+		// 입력 받은 값보다 먼저 입사한 사람의
+		// 이름, 입사일, 성별(M,F) 조회
 
+		SELECT EMP_NAME , TO_CHAR(HIRE_DATE, 'YYYY"년" MM"월" DD"일"') AS "HIRE_DATE" , 
+		DECODE(SUBSTR(EMP_NO, 8, 1), '1', 'M', '2', 'F') AS GENDER 
+		FROM EMPLOYEE 
+		WHERE HIRE_DATE < TO_DATE('2005-05-05');
 
-
-
-
-
-
+		
 -----------------------------------------------------
 
 SELECT JOB_CODE, SUM(SALARY)
