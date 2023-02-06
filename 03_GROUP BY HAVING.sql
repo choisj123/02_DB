@@ -22,7 +22,7 @@
 
 SELECT DEPT_CODE
 FROM EMPLOYEE
-ORDER BY dept_code ;
+ORDER BY dept_code;
 
 --2) 전체 급여 합 조회
 SELECT SUM(SALARY) 

@@ -16,7 +16,7 @@ DROP TABLE EMP_M02;
  * --> CREATE, DROP, ALTER
  * DCL(DATA CONTROL LANGUAGE) : 데이터 제어 
  * --> GRANT, REVOKE
- * TCL(DATA CONTROL LANGUAGE) : 트랜젝션 제어 
+ * TCL(TRANSACTION CONTROL LANGUAGE) : 트랜젝션 제어 
  * --> COMMIT, ROLLBACK, SAVEPOINT
  */
 
@@ -334,11 +334,11 @@ WHERE EMP_NAME = '장채현';
 
 -- EMPLOYEE2 테이블에서 '장채현' 사원 정보 삭제
 DELETE FROM EMPLOYEE2 
-WHERE EMP_NAME = '채현';
+WHERE EMP_NAME = '장채현';
 
 --삭제 확인
 SELECT * FROM EMPLOYEE2 
-WHERE EMP_NAME = '채현'; --> 조회 결과 없음
+WHERE EMP_NAME = '장채현'; --> 조회 결과 없음
 
 ROLLBACK;
 

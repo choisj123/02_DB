@@ -46,7 +46,7 @@ JOIN JOB USING(JOB_CODE);
 
   --> 1) SYS 관리자 계정 접속
   --> 2) ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;  
-  --> 3) GRANT CREATE VIEW TO kh_이니셜;
+  --> 3) GRANT CREATE VIEW TO kh;
   --> VIEW 생성 구문 다시 실행
   
 SELECT * FROM V_EMP;
