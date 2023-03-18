@@ -129,7 +129,7 @@ SELECT * FROM MEMBER;
 
 
 --  ** JDBC에서 날짜를 입력 받았을 때 삽입하는 방법 **
--- '2023-01-13' 10:33:27'
+-- '2023-01-13 10:33:27'
 INSERT INTO MEMBER VALUES ('MEM05', 'PASS05', '김준수', '121212-1234563', 
 					TO_DATE('2023-01-13 10:33:27', 'YYYY-MM-DD HH24:MI:SS')
 );
